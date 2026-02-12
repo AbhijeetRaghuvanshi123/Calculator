@@ -7,7 +7,48 @@
 </head>
 <body>
     <h1>Calculator</h1>
+
+
     <script>
+        function add( a, b){
+            return a + b;
+        }
+        function subtract( a, b){
+            return a - b;
+        }
+        function multiply( a, b){
+            return a * b;
+        }
+        function divide( a, b){
+            return a / b;
+        }
+        function operate( a, b, opr){
+            switch (opr) {
+                case "*":
+                    console.log(multiply(a, b));
+                    break;
+                
+                case "+":
+                    console.log(add(a,b));
+                    break;
+                
+                case "-":
+                    console.log(subtract( a, b));
+                    break;
+                
+                case "/":
+                    console.log(divide(a, b));
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        let a = parseInt(prompt("Enter a number"));
+        let b = parseInt(prompt("Enter another number"));
+        let opr = prompt("Enter Operation(+|-|*|/): ")
+        operate( a, b, opr);
 
     </script>
 </body>
