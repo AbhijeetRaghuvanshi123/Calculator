@@ -4,9 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <style>
+
+        body{
+            background-color: #2e2e2e;
+            font-family: 'Courier New', monospace;
+        }
+
+        .container{
+            padding-top: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .controls{
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 
+                inset 0 0 10px #000,
+                0 10px 25px rgba(0,0,0,0.6);
+        }
+
+        .screen{
+            border: 4px solid #111;
+            border-radius: 8px;
+            width: 200px;
+            height: 70px;
+            background: linear-gradient(to bottom, #9dc183, #6f8f5b);
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+        }
+
+        .row{
+            display: flex;
+            justify-content: center;
+        }
+
+        .operands{
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .numBtn, .oprBtn{
+            margin: 6px;
+            width: 55px;
+            height: 45px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            font-weight: bold;
+            box-shadow: 
+                0 4px #000,
+                inset 0 -2px 5px rgba(255,255,255,0.1);
+            transition: all 0.1s ease;
+        }
+
+        .numBtn{
+            background-color: #3a3a3a;
+            color: white;
+            border: 2px solid #111;
+        }
+
+        .oprBtn{
+            background-color: #d35400;
+            color: white;
+            border: 2px solid #111;
+        }
+
+        /* Button press effect */
+        .numBtn:active, .oprBtn:active{
+            transform: translateY(4px);
+            box-shadow: 
+                0 1px #000,
+            inset 0 -1px 3px rgba(255,255,255,0.1);
+        }
+
+
+    </style>
 </head>
 <body>
-    <h1>Calculator</h1>
+    <div class="container">
+        <div class="controls">
+            <div class="screen"></div>
+            <div class="numbers">
+                <div class="row">
+                    <div class="numBtn">1</div>
+                    <div class="numBtn">2</div>
+                    <div class="numBtn">3</div>
+                </div>
+                <div class="row">
+                    <div class="numBtn">4</div>
+                    <div class="numBtn">5</div>
+                    <div class="numBtn">6</div>
+                </div>
+                <div class="row">
+                    <div class="numBtn">7</div>
+                    <div class="numBtn">8</div>
+                    <div class="numBtn">9</div>
+                </div>
+                <div class="row">
+                    <div class="oprBtn">/</div>
+                    <div class="numBtn">0</div>
+                    <div class="oprBtn">=</div>
+                </div>
+            </div>
+            <div class="operands">
+                <div class="oprBtn">+</div>
+                <div class="oprBtn">-</div>
+                <div class="oprBtn">*</div>
+                
+            </div>
+        </div>
+
+    </div>
 
 
     <script>
@@ -44,11 +161,6 @@
                     break;
             }
         }
-
-        let a = parseInt(prompt("Enter a number"));
-        let b = parseInt(prompt("Enter another number"));
-        let opr = prompt("Enter Operation(+|-|*|/): ")
-        operate( a, b, opr);
 
     </script>
 </body>
