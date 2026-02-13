@@ -23,6 +23,9 @@
             background-color: #1f1f1f;
             padding: 20px;
             border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             box-shadow: 
                 inset 0 0 10px #000,
                 0 10px 25px rgba(0,0,0,0.6);
@@ -36,6 +39,7 @@
             background: linear-gradient(to bottom, #9dc183, #6f8f5b);
             margin-bottom: 20px;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+            text-align: end;
         }
 
         .row{
@@ -95,31 +99,31 @@
             <div class="screen"></div>
             <div class="numbers">
                 <div class="row">
-                    <div class="numBtn">1</div>
-                    <div class="numBtn">2</div>
-                    <div class="numBtn">3</div>
+                    <div class="numBtn" id="one">1</div>
+                    <div class="numBtn" id="two">2</div>
+                    <div class="numBtn" id="three">3</div>
                 </div>
                 <div class="row">
-                    <div class="numBtn">4</div>
-                    <div class="numBtn">5</div>
-                    <div class="numBtn">6</div>
+                    <div class="numBtn" id="four">4</div>
+                    <div class="numBtn" id="five">5</div>
+                    <div class="numBtn" id="six">6</div>
                 </div>
                 <div class="row">
-                    <div class="numBtn">7</div>
-                    <div class="numBtn">8</div>
-                    <div class="numBtn">9</div>
+                    <div class="numBtn" id="seven">7</div>
+                    <div class="numBtn" id="eight">8</div>
+                    <div class="numBtn" id="nine">9</div>
                 </div>
                 <div class="row">
-                    <div class="oprBtn">/</div>
-                    <div class="numBtn">0</div>
-                    <div class="oprBtn">=</div>
+                    <div class="oprBtn" id="clear">C</div>
+                    <div class="numBtn" id="zero">0</div>
+                    <div class="oprBtn" id="equals">=</div>
                 </div>
             </div>
             <div class="operands">
                 <div class="oprBtn">+</div>
                 <div class="oprBtn">-</div>
                 <div class="oprBtn">*</div>
-                
+                <div class="oprBtn">/</div>
             </div>
         </div>
 
@@ -137,31 +141,95 @@
             return a * b;
         }
         function divide( a, b){
+            if(b == 0) return "Error"
             return a / b;
         }
         function operate( a, b, opr){
             switch (opr) {
                 case "*":
-                    console.log(multiply(a, b));
-                    break;
+                    return multiply(a, b);
                 
                 case "+":
-                    console.log(add(a,b));
-                    break;
+                    return add(a,b);
                 
                 case "-":
-                    console.log(subtract( a, b));
-                    break;
+                    return subtract( a, b);
                 
                 case "/":
-                    console.log(divide(a, b));
-                    break;
+                    return divide(a, b);
 
                 default:
-                    break;
             }
         }
 
+        const screen = document.querySelector(".screen");
+        const controls = document.querySelector(".controls");
+        let totalData = '';
+        let currData = '';
+        let numA = '';
+        let numB = '';
+        let opr = '';
+        let res = '';
+        let justCalculated = false;
+
+        controls.addEventListener('click' , (e) => {
+            if(e.target.classList.contains('numBtn')){
+                if (justCalculated) {
+                    totalData = '';
+                    currData = '';
+                    numA = '';
+                    justCalculated = false;
+                }
+                totalData += e.target.innerText;
+                currData += e.target.innerText;
+            }
+            if(e.target.classList.contains('oprBtn') && e.target.id != 'equals'){
+                if (currData === '' && numA !== '') {
+                    opr = e.target.innerText; 
+                    totalData = totalData.slice(0, -1) + opr;
+                    screen.innerText = totalData;
+                    return;
+                }
+
+                if (currData === '') return;
+
+                if(opr !=='' && numA !== ''){
+                    numB = currData;
+                    res = operate(parseFloat(numA),parseFloat(numB), opr);
+                    numA = res;
+                    numB = '';
+                    totalData = res ;
+                    currData = '';
+                }
+
+                opr = e.target.innerText;
+                totalData += e.target.innerText;
+                if(numA == ''){
+                    numA = currData;
+                    currData = '';
+                }
+            }
+            
+            if(e.target.id == 'equals'){
+                if(currData === '') return;
+                numB = currData;
+                res = operate(parseFloat(numA),parseFloat(numB), opr);
+                totalData = res;
+                justCalculated = true;
+            }
+
+            if(e.target.id === 'clear'){
+                totalData = '';
+                currData = '';
+                numA = '';
+                numB = '';
+                opr = '';
+                res = '';
+            }
+
+            screen.innerText = totalData;
+        })
+
     </script>
 </body>
-</html>
+</htm
